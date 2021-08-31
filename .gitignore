@@ -1,0 +1,10 @@
+config/.env
+node_modules
+.htaccess
+.well-known
+cgi-bin
+stderr.log
+package-lock.json
+public
+tmp
+yarn.lock
