@@ -16,76 +16,88 @@ import SingleJobPage from './pages/singleJobPage';
 import setBaseUrl from './axios/set.base.url';
 import { observer } from 'mobx-react';
 import Searches from './pages/searches';
+import ChangePassword from './pages/ChangePassword';
+import ForgetUserPassword from './pages/ForgetPassword';
+import ResetPassword from './pages/ForgetPassword/ResetPassword';
 
 const App = observer(() => {
-   const location = useLocation();
+  const location = useLocation();
 
-   useEffect(() => {
-      setBaseUrl();
-      // initial setting of token
+  useEffect(() => {
+    setBaseUrl();
+    // initial setting of token
 
-      return () => {};
-   }, []);
+    return () => {};
+  }, []);
 
-   useEffect(() => {
-      window.scrollTo(0, 0);
-      return () => {};
-   }, [location]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    return () => {};
+  }, [location]);
 
-   return (
-      <>
-         <div className="App">
-            <ToastContainer
-               position="top-right"
-               autoClose={5000}
-               hideProgressBar={false}
-               newestOnTop={false}
-               closeOnClick
-               rtl={false}
-               pauseOnFocusLoss
-               draggable
-               pauseOnHover
-            />
-            <AnimatePresence exitBeforeEnter initial={false}>
-               <Switch location={location} key={location.pathname}>
-                  <Route exact path="/">
-                     <HomePage />
-                  </Route>
-                  <Route exact path="/login">
-                     <UserLogin />
-                  </Route>
-                  <Route exact path="/signup">
-                     <UserSignup />
-                  </Route>
-                  <Route path="/login/company">
-                     <CompanyLogin />
-                  </Route>
-                  <Route path="/signup/company">
-                     <CompanySignup />
-                  </Route>
-                  <Route path="/profile/company/:company_id">
-                     <CompanyProfile />
-                  </Route>
-                  <Route path="/profile/user/:user_id">
-                     <UserProfile />
-                  </Route>
-                  <Route path="/jobs/:job_id">
-                     <SingleJobPage />
-                  </Route>
-                  <Route path="/search">
-                     <Searches />
-                  </Route>
-                  <Route>
-                     <div>
-                        <h1>404</h1>
-                        <p>Page Not Found</p>
-                     </div>
-                  </Route>
-               </Switch>
-            </AnimatePresence>
-         </div>
-      </>
-   );
+  return (
+    <>
+      <div className='App'>
+        <ToastContainer
+          position='top-right'
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <AnimatePresence exitBeforeEnter initial={false}>
+          <Switch location={location} key={location.pathname}>
+            <Route exact path='/'>
+              <HomePage />
+            </Route>
+            <Route exact path='/login'>
+              <UserLogin />
+            </Route>
+            <Route exact path='/signup'>
+              <UserSignup />
+            </Route>
+            <Route path='/login/company'>
+              <CompanyLogin />
+            </Route>
+            <Route path='/signup/company'>
+              <CompanySignup />
+            </Route>
+            <Route path='/profile/company/:company_id'>
+              <CompanyProfile />
+            </Route>
+            <Route path='/profile/user/:user_id'>
+              <UserProfile />
+            </Route>
+            <Route path='/jobs/:job_id'>
+              <SingleJobPage />
+            </Route>
+            <Route path='/search'>
+              <Searches />
+            </Route>
+            <Route path='/change-password'>
+              <ChangePassword />
+            </Route>
+            <Route path='/forget-password'>
+              <ForgetUserPassword />
+            </Route>
+            <Route path='/reset-password'>
+              <ResetPassword />
+            </Route>
+            <Route>
+              <div>
+                <h1>404</h1>
+                <p>Page Not Found</p>
+              </div>
+            </Route>
+          </Switch>
+        </AnimatePresence>
+      </div>
+    </>
+  );
 });
 
 export default App;
