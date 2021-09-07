@@ -7,17 +7,17 @@ module.exports = function makeResetPassword({ User, generateOTP }) {
     const user = await User.findOne({ email: body.email });
     if (!user) {
       throw {
-        error: 'User not found',
+        error: 'User with given credential not found',
       };
     }
     // make a reset password service
     const otp = generateOTP();
-    User.findByIdAndUpdate({ id: user.id, updateUser: { token: otp } });
-    // Mail({
-    //   to: body.email,
-    //   subject: 'One Time Password',
-    //   text: 'Your One Time Password to reset your password is ' + otp,
-    // });
+    User.findByIdAndUpdate({ id: user._id, updateUser: { token: otp } });
+    Mail({
+      to: body.email,
+      subject: 'One Time Password',
+      text: 'Your One Time Password to reset your password is ' + otp,
+    });
     return ResetPasswordDTO();
   };
 };

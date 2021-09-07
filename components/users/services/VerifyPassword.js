@@ -17,9 +17,9 @@ module.exports = function makeVerifyPassword({ User, generateOTP, jwt }) {
     }
     // make a reset password service
     const otp = generateOTP();
-    User.findByIdAndUpdate({ id: user.id, updateUser: { token: otp } });
+    User.findByIdAndUpdate({ id: user._id, updateUser: { token: otp } });
 
-    let payload = { id: user.id, name: user.name, email: user.email, role: user.role };
+    let payload = { id: user._id, name: user.name, email: user.email, role: user.role };
 
     const token = await jwt.sign(payload, process.env.SecretOrKey, { expiresIn: '2d' });
     return VerifyPasswordDTO({ token });

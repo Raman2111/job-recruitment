@@ -3,6 +3,7 @@ const signupDTO = require('./signupDTO');
 const allUsersDTO = require('./allUsersDTO');
 const ResetPasswordDTO = require('./ResetPasswordDTO');
 const VerifyPasswordDTO = require('./VerifyPasswordDTO');
+const passwordChangeDTO = require('./passwordChangeDTO');
 
 module.exports = {
   loginDTO,
@@ -10,4 +11,5 @@ module.exports = {
   allUsersDTO,
   ResetPasswordDTO,
   VerifyPasswordDTO,
+  passwordChangeDTO,
 };

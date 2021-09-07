@@ -9,7 +9,7 @@ module.exports = function makeUserLogin({ User, bcrypt, jwt }) {
     }
     const user = await User.findUserByEmail({ email: data.getEmail() });
     if (!user) {
-      errors.error = 'User doesnot exists. Please create an account first.';
+      errors.error = 'Username or password incorrect';
       throw { ...errors };
     }
     console.log(data.getPassword());
