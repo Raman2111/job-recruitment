@@ -14,7 +14,7 @@ const findAll = async ({ query, user }) => {
     .populate([
       {
         path: 'job',
-        select: 'title emp_type industry seniority_level company',
+        select: 'title status emp_type industry seniority_level company',
         populate: { path: 'company', select: 'name title email' },
       },
     ]);
