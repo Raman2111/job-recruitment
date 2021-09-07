@@ -13,7 +13,7 @@ Route.route('/:id/applied-users').get(
 );
 Route.route('/:id')
   .get(passport.authenticate('both', { session: false }), jobsController.findOne)
-  .patch(passport.authenticate('company', { session: false }), jobsController.update);
-// .delete(jobsController.destroy);
+  .patch(passport.authenticate('company', { session: false }), jobsController.update)
+  .delete(jobsController.destroy);
 
 module.exports = Route;

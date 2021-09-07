@@ -1,7 +1,7 @@
 const { validateJob } = require('../validators');
 const { createJobDTO } = require('../dtos');
 const qs = require('qs');
-module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendation }) {
+module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendation, Profile }) {
   return async function createJob({ httpRequest: { body, user } }) {
     const { errors, isValid, data } = validateJob(body);
     if (!isValid) {
@@ -30,16 +30,6 @@ module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendat
     createdJob.skills.forEach((skill) => {
       dataAI += skill.name + ' ';
     });
-    console.log(dataAI);
-    // request.post(
-    //   'https://flask-job-recommendation.herokuapp.com/recommend-job',
-    //   { job_skills: dataAI },
-    //   function (err, httpResponse, body) {
-    //     /* ... */
-    //     console.log(body);
-    //   }
-    // );
-
     axios({
       method: 'POST',
       url: 'https://flask-job-recommendation.herokuapp.com/recommend-job',
@@ -51,25 +41,26 @@ module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendat
       },
     })
       .then((res) => {
-        const recommendedUser = res.data.userId;
-        const recommendationObj = {
-          job: createdJob.id,
-          users: recommendedUser,
-        };
-        Recommendation.create(recommendationObj);
+        console.log(res.data);
       })
-      .catch((e) => console.log(e));
-
-    ElasticAddJob({
-      httpRequest: {
-        body: {
-          id: createdJob.id,
-          title: createdJob.title,
-          location: createdJob.location,
-          industry: createdJob.industry,
-        },
-      },
+      .catch((e) => {});
+    let toRecommend = [];
+    const profiles = await Profile.find();
+    profiles.map((profile) => {
+      if (profile.skills.length > 1) {
+        for (let i = 0; i < createdJob.skills.length; i++) {
+          if (profile.skills.includes(createdJob.skills[i]._id)) {
+            toRecommend.push(profile.user);
+            break;
+          }
+        }
+      }
     });
+    const recommendationObj = {
+      job: createdJob.id,
+      users: toRecommend,
+    };
+    Recommendation.create(recommendationObj);
 
     return createJobDTO({ job: createdJob });
   };

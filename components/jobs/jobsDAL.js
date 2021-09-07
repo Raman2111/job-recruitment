@@ -10,16 +10,19 @@ const findAll = async ({ query }) => {
   let { skip, limit } = query;
   skip = skip ? Number(skip) : 0;
   limit = limit ? Number(limit) : 10;
-  return await Job.find({}).skip(skip).limit(limit).sort('-date');
+  return await Job.find({ status: 'Published' }).skip(skip).limit(limit).sort('-date');
 };
 
 const findAllJobsByCompany = async (companyId) => {
-  return await Job.find({ company: companyId }).sort('-date');
+  return await Job.find({ company: companyId, status: 'Published' }).sort('-date');
 };
 
 const findOne = async (jobObject) => {
   try {
-    const job = await Job.findOne(jobObject).populate('skills', 'name description');
+    const job = await Job.findOne({ ...jobObject, ...{ status: 'Published' } }).populate(
+      'skills',
+      'name description'
+    );
     if (job) return job.toObject();
     else return null;
   } catch (err) {
@@ -28,7 +31,10 @@ const findOne = async (jobObject) => {
 };
 
 const findOneById = async (id) => {
-  const job = await Job.findById(id).populate('skills company', 'name description title location');
+  const job = await Job.findOne({ _id: id, status: 'Published' }).populate(
+    'skills company',
+    'name description title location'
+  );
   if (job) return job.toObject();
   else return null;
 };
@@ -38,7 +44,11 @@ const findByIdAndUpdate = async ({ id, updateJob }) => {
 };
 
 const findByIdAndRemove = async (id) => {
-  return await Job.findByIdAndRemove(id);
+  return await Job.findByIdAndUpdate(
+    id,
+    { status: 'Not Published' },
+    { new: true, runValidators: true }
+  );
 };
 
 module.exports = {
