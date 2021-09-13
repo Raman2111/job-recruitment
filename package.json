@@ -18,7 +18,7 @@
     "express": "*",
     "is-empty": "*",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "*",
+    "mongoose": "5.13.7",
     "nodemailer": "^6.6.0",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
