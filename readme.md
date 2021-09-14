@@ -13,4 +13,4 @@
 ### To run frontend
 #### 1. Run `cd client`
 #### 2. Run `npm install` [for first Time only]
-#### 3. Run `npm start`
+#### 3. Run `npm start`npm

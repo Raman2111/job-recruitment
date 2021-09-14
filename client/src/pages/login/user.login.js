@@ -59,14 +59,14 @@ const UserLogin = () => {
   return (
     <AuthLayouts>
       <FormContainer>
-        <h4 className='text-center'>Job seeker login</h4>
+        <h2 className='text-center' style={{"font-weight":"bold" }}>Job seeker login</h2>
         <Form onSubmit={(e) => handleSubmit(e)}>
-          <Form.Group>
-            <Form.Text>Email</Form.Text>
+          <Form.Group style={{ "padding-top":"30px" }}>
+            <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Email</Form.Text>
             <Form.Control ref={emailRef} type='email' placeholder='your email'></Form.Control>
-          </Form.Group>
-          <Form.Group>
-            <Form.Text>Password</Form.Text>
+          </Form.Group >
+          <Form.Group style={{ "padding-top":"10px" }}>
+            <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Password</Form.Text>
             <Form.Control
               ref={passwordRef}
               type='password'

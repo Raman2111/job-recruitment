@@ -62,22 +62,22 @@ function UserSignup() {
    return (
       <AuthLayouts>
          <FormContainer>
-            <h4 className="text-center">Job seeker signup</h4>
+            <h2 className="text-center" style={{"font-weight":"bold" }}>Job seeker signup</h2>
             <Form onSubmit={handleSubmit}>
-               <Form.Group>
-                  <Form.Text>Full Name</Form.Text>
+               <Form.Group style={{ "padding-top":"30px" }}>
+                  <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Full Name</Form.Text>
                   <Form.Control ref={nameRef} type="text" placeholder="type your full name"></Form.Control>
                </Form.Group>
                <Form.Group>
-                  <Form.Text>Address</Form.Text>
+                  <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Address</Form.Text>
                   <Form.Control ref={addressRef} type="text" placeholder="type your address"></Form.Control>
                </Form.Group>
                <Form.Group>
-                  <Form.Text>Email</Form.Text>
+                  <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Email</Form.Text>
                   <Form.Control ref={emailRef} type="email" placeholder="your email"></Form.Control>
                </Form.Group>
                <Form.Group>
-                  <Form.Text>Password</Form.Text>
+                  <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Password</Form.Text>
                   <Form.Control ref={passwordRef} type="password" placeholder="your password"></Form.Control>
                </Form.Group>
                <Form.Group>

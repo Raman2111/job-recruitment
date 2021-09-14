@@ -67,27 +67,27 @@ function CompanySignup() {
    return (
       <AuthLayouts>
          <FormContainer>
-            <h4 className="text-center">Recruiter Signup</h4>
+            <h2 className="text-center" style={{"font-weight":"bold" }}>Recruiter Signup</h2>
             <Form onSubmit={handleSubmit}>
-               <Form.Group>
-                  <Form.Text>Company Name</Form.Text>
+               <Form.Group style={{ "padding-top":"30px" }}>
+                  <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Company Name</Form.Text>
                   <Form.Control ref={nameRef} type="text" placeholder="type your company name"></Form.Control>
                </Form.Group>
                <Form.Group>
-                  <Form.Text>Email</Form.Text>
+                  <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Email</Form.Text>
                   <Form.Control ref={emailRef} type="email" placeholder="ttype your email"></Form.Control>
                </Form.Group>
                <Form.Group>
-                  <Form.Text>Password</Form.Text>
+                  <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Password</Form.Text>
                   <Form.Control ref={passwordRef} type="password" placeholder="type your password"></Form.Control>
                </Form.Group>
                <Form.Group>
-                  <Form.Text>Address</Form.Text>
+                  <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Address</Form.Text>
                   <Form.Control ref={addressRef} type="text" placeholder="company address"></Form.Control>
                </Form.Group>
 
                <Form.Group>
-                  <Form.Text>About company</Form.Text>
+                  <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>About company</Form.Text>
                   <CKEditor
                      editor={ClassicEditor}
                      data={getAboutCompany()}

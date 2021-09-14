@@ -7,11 +7,11 @@ import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { setLoginState, storeDecoded, storeToken } from '../../auth/auth.states';
 import AuthLayouts from '../../layouts/auth.layouts';
-
+ 
 const FormContainer = styled.div`
   width: 40%;
   margin: 20px auto;
-`;
+`; 
 
 const CompanyLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -59,14 +59,14 @@ const CompanyLogin = () => {
   return (
     <AuthLayouts>
       <FormContainer>
-        <h4 className='text-center'>Recruiter login</h4>
+        <h2 className='text-center' style={{"font-weight":"bold" }}>Recruiter login</h2>
         <Form onSubmit={(e) => handleSubmit(e)}>
-          <Form.Group>
-            <Form.Text>Email</Form.Text>
+          <Form.Group style={{ "padding-top":"30px" }}>
+            <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Email</Form.Text>
             <Form.Control ref={emailRef} type='email' placeholder='your email'></Form.Control>
           </Form.Group>
-          <Form.Group>
-            <Form.Text>Password</Form.Text>
+          <Form.Group style={{ "padding-top":"10px" }}>
+            <Form.Text style={{ "font-weight":"bold","font-size":"16px","padding-bottom":"10px" }}>Password</Form.Text>
             <Form.Control
               ref={passwordRef}
               type='password'
