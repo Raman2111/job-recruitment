@@ -9,7 +9,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { getJobDescription, setJobDescription } from './jobDescription.data';
 import axios from 'axios';
-import { getToken } from '../../../auth/auth.states';
+import { getDecoded, getToken } from '../../../auth/auth.states';
 import { toast } from 'react-toastify';
 
 const empTypeOpts = [
@@ -90,6 +90,16 @@ function CreateJobModal(props) {
             console.log(res);
             toast.success('job created ⚡');
             handleCloseModal();
+            axios
+            .get(`/api/profiles/${getDecoded()?.id}`, {
+               headers: {
+                  Authorization: getToken(),
+               },
+            })
+            .then((res) => {
+               props.setCredit(res.data.user.credit);
+            })
+            .catch((err) => {});
          })
          .catch((err) => {
             console.log(err);

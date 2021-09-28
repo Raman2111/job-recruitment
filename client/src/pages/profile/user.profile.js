@@ -24,6 +24,7 @@ function UserProfile() {
    const [selectedSkills, setSkills] = useState([]);
 
    const [isAddingSkill, setIsAddingSkill] = useState(false);
+   const [credit, setCredit] = useState(0);
 
    const history = useHistory();
    const params = useParams();
@@ -74,7 +75,14 @@ function UserProfile() {
 
       return () => {};
    }, [history, params]);
-
+   useEffect(() => {
+      axios
+      .get('/api/users/profile', { headers: { Authorization: getToken() } })
+      .then((res) => {
+        setCredit(res?.data?.credit);
+      })
+      .catch((err) => {});
+   }, [])
    const addSkill = () => {
       setIsAddingSkill(true);
       // console.log(selectedSkills?.map((item) => item.value));
@@ -101,7 +109,7 @@ function UserProfile() {
    };
 
    return (
-      <UserLayouts page="user-profile">
+      <UserLayouts page="user-profile" credit={credit}>
          <Row className="my-4">
             <Col xs={12} md={6} className="text-center">
                <img src="/user-profile.png" alt="profile" height="200" width="200" style={{ borderRadius: '100%' }} />

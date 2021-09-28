@@ -9,7 +9,7 @@ function UserLayouts(props) {
 
    return (
       <>
-         <NavbarComponent page={page} />
+         <NavbarComponent page={page} credit={props.credit} />
          <Container>
             <motion.div
                initial={{ opacity: 0 }}

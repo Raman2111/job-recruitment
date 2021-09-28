@@ -7,7 +7,7 @@ import NavbarComponent from './components/Navbar';
 function SingleJobPageLayouts(props) {
    return (
       <>
-         <NavbarComponent page={props.page} />
+         <NavbarComponent page={props.page} credit={props.credit} />
          <Container>
             <motion.div
                initial={{ opacity: 0 }}

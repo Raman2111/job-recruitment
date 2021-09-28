@@ -13,6 +13,7 @@ function HomePage() {
   const history = useHistory();
   const [recentJobs, setRecentJobs] = useState([]);
   const [recommendedJobs, setRecommended] = useState(null);
+  const [credit, setCredit] = useState(0);
 
   useEffect(() => {
     if (!getLoginState()) {
@@ -35,6 +36,14 @@ function HomePage() {
         console.log(err.response);
       });
 
+    axios
+      .get('/api/users/profile', { headers: { Authorization: getToken() } })
+      .then((res) => {
+        console.log(res);
+        setCredit(res?.data?.credit);
+      })
+      .catch((err) => {});
+
     const asyncFunc = async () => {
       try {
         const rcjobs = await axios.get('/api/jobs', { headers: { authorization: getToken() } });
@@ -52,7 +61,7 @@ function HomePage() {
   }, [history]);
 
   return (
-    <HomeLayouts page='home'>
+    <HomeLayouts page='home' credit={credit}>
       {!!recommendedJobs && (
         <>
           <h2 className='text-left'>Recommended Jobs</h2>
@@ -61,7 +70,7 @@ function HomePage() {
               .filter((rec) => rec.job.status === 'Published')
               .map((item, index) => (
                 <div key={item?.id ?? index}>
-                  <JobCard job={item?.job} />
+                  <JobCard credit={credit} job={item?.job} />
                 </div>
               ))}
           </Slider>
@@ -75,7 +84,7 @@ function HomePage() {
         {recentJobs.map((job) => {
           return (
             <div className='mx-2' key={job.id}>
-              <JobCard job={job} />
+              <JobCard credit={credit} job={job} />
             </div>
           );
         })}

@@ -16,7 +16,7 @@ const CompanyProfile = observer(() => {
    const [showModal, setShowModal] = useState(false);
    const [profile, setProfile] = useState(null);
    const [postedJobs, setPostedJobs] = useState([]);
-
+   const [credit, setCredit] = useState(0);
    const history = useHistory();
 
    useEffect(() => {
@@ -35,14 +35,10 @@ const CompanyProfile = observer(() => {
             },
          })
          .then((res) => {
-            console.log(res);
             setProfile(res.data);
+            setCredit(res.data.user.credit);
          })
-         .catch((err) => {
-            console.log(err);
-            console.log(err.response);
-            // if (err.response?.status === 401) history.push('/login/company');
-         });
+         .catch((err) => {});
 
       fetchAppliedJobs();
 
@@ -53,7 +49,6 @@ const CompanyProfile = observer(() => {
       axios
          .get('/api/jobs', { headers: { Authorization: getToken() } })
          .then((res) => {
-            console.log(res);
             setPostedJobs(res.data);
          })
          .catch((err) => {
@@ -62,7 +57,7 @@ const CompanyProfile = observer(() => {
    };
 
    return (
-      <CompanyLayouts page="company-profile">
+      <CompanyLayouts page="company-profile" credit={credit}>
          <Row className="my-4 flex-wrap">
             <Col xs={12} md={6} className="p-2">
                <img src="/company-logo.png" alt="company logo" height="200" />
@@ -131,7 +126,7 @@ const CompanyProfile = observer(() => {
             </Slider>
          </div> */}
 
-         <CreateJobModal showModal={showModal} setShowModal={setShowModal} />
+         <CreateJobModal setCredit={setCredit} showModal={showModal} setShowModal={setShowModal} />
       </CompanyLayouts>
    );
 });

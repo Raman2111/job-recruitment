@@ -68,6 +68,19 @@ const changeResetPassword = async (req, res) => {
   }
 };
 
+const profile = async (req, res) => {
+  const { body, user } = req;
+  try {
+    const response = await usersService.profile({
+      httpRequest: { body, AuthUser: user },
+    });
+    res.status(200).send(response);
+  } catch (e) {
+    console.log(e);
+    res.status(400).send(e);
+  }
+};
+
 module.exports = {
   login,
   signup,
@@ -75,4 +88,5 @@ module.exports = {
   resetPassword,
   verifyPassword,
   changeResetPassword,
+  profile
 };

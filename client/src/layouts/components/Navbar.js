@@ -108,6 +108,7 @@ function NavbarComponent(props) {
               Start your new career, Find for jobs and companies
             </div>
             <div style={{ color: 'white', fontSize: 25 }}>E-Job Recruitment</div>
+            <div style={{ color: 'white', fontSize: 16 }}>credit left: {props.credit}</div>
           </div>
         </div>
       </Container>

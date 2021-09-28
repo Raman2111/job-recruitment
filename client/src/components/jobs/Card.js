@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function JobCard({ job }) {
+function JobCard({ job, credit }) {
    return (
       <>
          <Card className="my-2 my-lg-1 my-xl-2 shadow-sm" style={{ maxWidth: 200 }}>
@@ -30,7 +30,7 @@ function JobCard({ job }) {
                </small>
             </div>
             <div className="p-2">
-               <Link to={`/jobs/${job?.id ?? job?._id}`}>
+               <Link to={{pathname: `/jobs/${job?.id ?? job?._id}`, state: {credit} }}>
                   <Button className=" d-flex justify-content-center align-items-center" variant="primary" block>
                      <p style={{ marginBottom: 3 }}>view</p> <i className="ml-2 bx bx-arrow-to-right"></i>
                   </Button>

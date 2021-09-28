@@ -12,4 +12,8 @@ Route.route('/password/reset/change').post(
 	passport.authenticate('both', { session: false }),
 	usersController.changeResetPassword
 );
+Route.route('/profile').get(
+	passport.authenticate('user', { session: false }),
+	usersController.profile
+);
 module.exports = Route;

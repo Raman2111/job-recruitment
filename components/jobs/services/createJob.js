@@ -1,7 +1,7 @@
 const { validateJob } = require('../validators');
 const { createJobDTO } = require('../dtos');
 const qs = require('qs');
-module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendation, Profile }) {
+module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendation, Profile, User }) {
   return async function createJob({ httpRequest: { body, user } }) {
     const { errors, isValid, data } = validateJob(body);
     if (!isValid) {
@@ -23,6 +23,16 @@ module.exports = function makeCreateJob({ Job, ElasticAddJob, axios, Recommendat
       endDate: data.getendDate(),
       date: data.getdate(),
     };
+
+    const currentUser = await User.findOne({ _id: user.id });
+    if (currentUser.credit < 0) {
+      throw { error: 'You have not enough credit left to create new job.' };
+    }
+    User.findByIdAndUpdate({
+      id: currentUser._id,
+      updateUser: { ...currentUser, credit: currentUser.credit - 1 },
+    });
+
     let createdJob = await Job.create(newJob);
 
     let dataAI = '';

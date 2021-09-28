@@ -4,6 +4,7 @@ const allUsersDTO = require('./allUsersDTO');
 const ResetPasswordDTO = require('./ResetPasswordDTO');
 const VerifyPasswordDTO = require('./VerifyPasswordDTO');
 const passwordChangeDTO = require('./passwordChangeDTO');
+const profileDTO = require('./profileDTO');
 
 module.exports = {
   loginDTO,
@@ -12,4 +13,5 @@ module.exports = {
   ResetPasswordDTO,
   VerifyPasswordDTO,
   passwordChangeDTO,
+  profileDTO,
 };

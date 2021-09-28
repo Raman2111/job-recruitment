@@ -41,6 +41,10 @@ const UserSchema = new Schema({
     type: Number,
     default: 1,
   },
+  credit: {
+    type: Number,
+    default: 100,
+  },
   token: {
     type: String,
   },

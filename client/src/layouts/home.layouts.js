@@ -8,7 +8,7 @@ function HomeLayouts(props) {
    const { page } = props;
    return (
       <>
-         <NavbarComponent page={page} />
+         <NavbarComponent page={page} credit={props.credit || 0} />
          <Container>
             <motion.div
                initial={{ opacity: 0 }}

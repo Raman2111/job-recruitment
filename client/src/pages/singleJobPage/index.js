@@ -8,7 +8,7 @@ import { slickSettings } from '../../utils/slick.settings';
 
 import SingleJobPageLayouts from '../../layouts/singleJobPage.layouts';
 import JobCard from '../../components/jobs/Card';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { getDecoded, getToken } from '../../auth/auth.states';
@@ -26,32 +26,31 @@ function SingleJobPage() {
   const [job, setJob] = useState(null);
   const [recentJobs, setRecentJobs] = useState(null);
 
+  const location = useLocation();
+  const [credit, setCredit] = useState(0);
+
   const params = useParams();
   const history = useHistory();
 
   useEffect(() => {
+    if (location?.state?.credit) setCredit(location?.state?.credit);
+    fetchJob();
+  }, []);
+  useEffect(() => {
     axios
       .get('/api/jobs/' + params?.job_id, { headers: { Authorization: getToken() } })
       .then((res) => {
-        console.log(res);
         setJob(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.resposne);
-      })
+      .catch((err) => {})
       .finally();
 
     axios
       .get('/api/jobs', { headers: { Authorization: getToken() } })
       .then((res) => {
-        console.log(res);
         setRecentJobs(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-        console.log(err.response);
-      })
+      .catch((err) => {})
       .finally();
     return () => {};
   }, [params]);
@@ -71,7 +70,6 @@ function SingleJobPage() {
           headers: { Authorization: getToken() },
         }
       );
-      console.log(res);
       setJobApplied(true);
       fetchJob();
     } catch (err) {
@@ -95,6 +93,14 @@ function SingleJobPage() {
         console.log(err.resposne);
       })
       .finally();
+
+    axios
+      .get('/api/users/profile', { headers: { Authorization: getToken() } })
+      .then((res) => {
+        console.log(res);
+        setCredit(res?.data?.credit);
+      })
+      .catch((err) => {});
   };
 
   const deleteJob = () => {
@@ -112,7 +118,7 @@ function SingleJobPage() {
   };
 
   return (
-    <SingleJobPageLayouts page='single-job-page'>
+    <SingleJobPageLayouts page='single-job-page' credit={credit}>
       <div className='mb-4 '>
         <Row className='my-4 flex-wrap'>
           <Col sm={12} md={8} className='p-3'>
@@ -260,7 +266,8 @@ function SingleJobPage() {
               <h2 style={{ fontWeight: 300 }}>{job?.company?.name}</h2>
 
               <div className='d-flex align-items-center'>
-                <i className='mr-2 text-muted bx bx-mail-send'></i> <span>company@gmail.com</span>
+                <i className='mr-2 text-muted bx bx-mail-send'></i>{' '}
+                <span>{job?.company?.email}</span>
               </div>
             </Row>
           </Col>

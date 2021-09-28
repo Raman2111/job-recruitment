@@ -2,45 +2,55 @@
 const User = require('./User');
 
 const create = async (newUser) => {
-	const user = await User.create(newUser);
-	return user;
+  const user = await User.create(newUser);
+  return user;
 };
 
 const findUserByEmail = async ({ email }) => {
-	const user = await User.findOne({ email });
-	return user;
+  const user = await User.findOne({ email });
+  return user;
 };
 
 const findAll = async ({ query }) => {
-	let { skip, limit } = query;
-	skip = skip ? Number(skip) : 0;
-	limit = limit ? Number(limit) : 10;
-	limit = limit === 0 ? Number(limit) : 0;
-	const users = await User.find({}).skip(skip).limit(limit);
-	// let regex = new RegExp(q, 'i');
-	// const users = await User.find({
-	// 	$and: [{ $or: [{ name: regex }, { title: regex }, { email: regex }] }],
-	// });
-	return users;
+  let { skip, limit } = query;
+  skip = skip ? Number(skip) : 0;
+  limit = limit ? Number(limit) : 10;
+  limit = limit === 0 ? Number(limit) : 0;
+  const users = await User.find({}).skip(skip).limit(limit);
+  // let regex = new RegExp(q, 'i');
+  // const users = await User.find({
+  // 	$and: [{ $or: [{ name: regex }, { title: regex }, { email: regex }] }],
+  // });
+  return users;
 };
 
 const findOne = async (userObject) => {
-	try {
-		const user = await User.findOne(userObject);
-		if (user) return user.toObject();
-		else return null;
-	} catch (err) {
-		throw { error: 'Unable to handle users request' };
-	}
+  try {
+    const user = await User.findOne(userObject);
+    if (user) return user.toObject();
+    else return null;
+  } catch (err) {
+    throw { error: 'Unable to handle users request' };
+  }
+};
+
+const findOneProfile = async (userObject) => {
+  try {
+    const user = await User.findOne(userObject);
+    if (user) return user.toObject();
+    else return null;
+  } catch (err) {
+    throw { error: 'Unable to handle users request' };
+  }
 };
 
 const findByIdAndUpdate = async ({ id, updateUser }) => {
-	try {
-		return await User.findByIdAndUpdate(id, updateUser, { new: true, runValidators: true });
-	} catch (e) {
-		console.log(e);
-		throw { error: 'Unable to handle request' };
-	}
+  try {
+    return await User.findByIdAndUpdate(id, updateUser, { new: true, runValidators: true });
+  } catch (e) {
+    console.log(e);
+    throw { error: 'Unable to handle request' };
+  }
 };
 
-module.exports = { create, findUserByEmail, findAll, findOne, findByIdAndUpdate };
+module.exports = { create, findUserByEmail, findAll, findOne, findByIdAndUpdate, findOneProfile };

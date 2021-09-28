@@ -11,6 +11,7 @@ const makeUserSignUp = require('./usersSignUp');
 const makePasswordReset = require('./ResetPassword');
 const makeVerifyPassword = require('./VerifyPassword');
 const makeChangeResetPassword = require('./changeResetPassword');
+const makeProfile = require('./profile');
 
 const findAll = makeFindAllUsers({ User });
 const login = makeUserLogin({ User, bcrypt, jwt });
@@ -18,12 +19,14 @@ const signUp = makeUserSignUp({ CreateProfileService, User, bcrypt, jwt, Elastic
 const resetPassword = makePasswordReset({ User, generateOTP });
 const verifyPassword = makeVerifyPassword({ User, generateOTP, jwt });
 const changeResetPassword = makeChangeResetPassword({ User, bcrypt });
+const profile = makeProfile({ User, bcrypt });
 
 module.exports = {
-	login,
-	signUp,
-	findAll,
-	resetPassword,
-	verifyPassword,
-	changeResetPassword,
+  login,
+  signUp,
+  findAll,
+  resetPassword,
+  verifyPassword,
+  changeResetPassword,
+  profile,
 };
