@@ -55,10 +55,24 @@ const destroy = async (req, res) => {
   }
 };
 
+const freshAndExperience = async (req, res) => {
+  const { query } = req;
+  try {
+    const response = await profilesService.freshAndExperience({
+      httpRequest: { query },
+    });
+    res.status(200).send(response);
+  } catch (e) {
+    console.log(e);
+    res.status(400).send(e);
+  }
+};
+
 module.exports = {
   findAll,
   create,
   findOne,
   update,
   destroy,
+  freshAndExperience,
 };

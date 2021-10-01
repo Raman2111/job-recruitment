@@ -49,6 +49,12 @@ const findByIdAndRemove = async (id) => {
   return await Profile.findByIdAndRemove(id);
 };
 
+const findFreshAndExperience = async ({ query }) => {
+  let { orderBy } = query;
+  const users = await Profile.find({}).populate('user skills', '-date -token -status -password');
+  return users;
+};
+
 module.exports = {
   create,
   findAll,
@@ -57,4 +63,5 @@ module.exports = {
   findByIdAndUpdate,
   findByIdAndRemove,
   Profile,
+  findFreshAndExperience,
 };

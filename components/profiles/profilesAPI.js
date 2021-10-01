@@ -5,10 +5,11 @@ const passport = require('passport');
 
 // @route   api/profiles/
 Route.route('/')
-	.get(profilesController.findAll)
-	.post(passport.authenticate('both', { session: false }), profilesController.create);
+  .get(profilesController.findAll)
+  .post(passport.authenticate('both', { session: false }), profilesController.create);
+Route.route('/fresh-and-experience').get(profilesController.freshAndExperience);
 Route.route('/:userId')
-	.get(passport.authenticate('both', { session: false }), profilesController.findOne)
-	.patch(passport.authenticate('both', { session: false }), profilesController.update);
+  .get(passport.authenticate('both', { session: false }), profilesController.findOne)
+  .patch(passport.authenticate('both', { session: false }), profilesController.update);
 
 module.exports = Route;

@@ -19,6 +19,7 @@ import Searches from './pages/searches';
 import ChangePassword from './pages/ChangePassword';
 import ForgetUserPassword from './pages/ForgetPassword';
 import ResetPassword from './pages/ForgetPassword/ResetPassword';
+import FreshAndExperience from './pages/FreshAndExperience';
 
 const App = observer(() => {
   const location = useLocation();
@@ -86,6 +87,9 @@ const App = observer(() => {
             </Route>
             <Route path='/reset-password'>
               <ResetPassword />
+            </Route>
+            <Route path='/fresh-and-experience'>
+              <FreshAndExperience />
             </Route>
             <Route>
               <div>

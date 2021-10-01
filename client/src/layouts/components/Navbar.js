@@ -109,6 +109,11 @@ function NavbarComponent(props) {
             </div>
             <div style={{ color: 'white', fontSize: 25 }}>E-Job Recruitment</div>
             <div style={{ color: 'white', fontSize: 16 }}>credit left: {props.credit}</div>
+            {getDecoded()?.role === 'company' && (
+              <Link to='/fresh-and-experience'>
+                <div style={{ color: 'white', fontSize: 16 }}>Fresh And Experience Candidate</div>
+              </Link>
+            )}
           </div>
         </div>
       </Container>
